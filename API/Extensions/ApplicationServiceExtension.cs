@@ -19,6 +19,10 @@ public static class ApplicationServiceExtension
        services.AddCors();
         //add Token Service
        services.AddScoped<ITokenService, TokenService>();
+       //add users service
+       services.AddScoped<IUserRepository,UserRepository>();
+       //add user Auto mapper        //the location of the cod 
+       services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
        return services ;
     }
 }
