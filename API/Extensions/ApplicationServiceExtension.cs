@@ -1,4 +1,5 @@
 using API.Data;
+using API.Helpers;
 using API.interfaces;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
@@ -21,8 +22,12 @@ public static class ApplicationServiceExtension
        services.AddScoped<ITokenService, TokenService>();
        //add users service
        services.AddScoped<IUserRepository,UserRepository>();
+       services.AddScoped<IPhotoService, PhotoService>();
        //add user Auto mapper        //the location of the cod 
        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+       //save the photo in cloud 
+       services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
+
        return services ;
     }
 }
