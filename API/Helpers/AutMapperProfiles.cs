@@ -17,5 +17,8 @@ public class AutMapperProfiles : Profile
          o.MapFrom(s => s.photos.FirstOrDefault(x => x.IsMain)!.Url));
         CreateMap<Photo, PhotoDto>();
         CreateMap<MemberUpdateDto, AppUser>();
+        CreateMap<RegisterDto , AppUser>();
+        // change from string to dateonly and fix the error
+        CreateMap<string , DateOnly>().ConvertUsing(s => DateOnly.Parse(s));
     }
 }

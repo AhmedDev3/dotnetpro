@@ -65,6 +65,9 @@ public class UsersController(IUserRepository userRepository , IMapper mapper ,
             Url= result.SecureUrl.AbsoluteUri,
             PublicId= result.PublicId
         };
+        //set the first photo user uplode to main photo
+        if(user.photos.Count == 0) photo.IsMain = true ;
+
         user.photos.Add(photo);
         if( await userRepository.SaveAllAsync())
         //add created respons 201
