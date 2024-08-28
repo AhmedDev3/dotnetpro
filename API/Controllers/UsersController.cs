@@ -1,9 +1,8 @@
-using System;
-using System.Security.Claims;
 using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Helpers;
 using API.interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -19,12 +18,11 @@ public class UsersController(IUserRepository userRepository , IMapper mapper ,
     //https respons to the claint
            //the type of the data
                                              
-    public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers(){
-
-        var users =await userRepository.GetMemberAsync();
-
-         
-
+    public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
+    {
+        userParams.CurrentUsername = User.GetUsername();
+        var users =await userRepository.GetMemberAsync(userParams); 
+        Response.AddPaginationHeader(users);
         return Ok(users);
     }   
         [HttpGet("{username}")] //endPoint  api/users/id=1,2,3

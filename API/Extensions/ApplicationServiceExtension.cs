@@ -23,6 +23,8 @@ public static class ApplicationServiceExtension
        //add users service
        services.AddScoped<IUserRepository,UserRepository>();
        services.AddScoped<IPhotoService, PhotoService>();
+       //add service is user online or not
+       services.AddScoped<LogUserActivity>();
        //add user Auto mapper        //the location of the cod 
        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
        //save the photo in cloud 
