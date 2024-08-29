@@ -43,7 +43,7 @@ public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
 public async Task<ActionResult<UserDto>>Login(LoginDto loginDto)
 { 
     var user=await context.Users
-    .Include(p => p.photos)
+    .Include(p => p.Photos)
         .FirstOrDefaultAsync(x =>
             x.UserName == loginDto.Username.ToLower());
 
@@ -63,7 +63,7 @@ public async Task<ActionResult<UserDto>>Login(LoginDto loginDto)
         KnownAs =user.KnownAs ,
         Token= tokenService.CreateToken(user),
         Gender = user.Gender,
-        PhotoUrl = user.photos.FirstOrDefault(x => x.IsMain)?.Url
+        PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
     };
 } 
 
