@@ -24,6 +24,8 @@ public static class ApplicationServiceExtension
        services.AddScoped<IUserRepository,UserRepository>();
        //add like 
        services.AddScoped<ILikesRepository , LikesRepository>();
+       //messges
+       services.AddScoped<IMessagRepository ,MessageRepository>();
        //add photo
        services.AddScoped<IPhotoService, PhotoService>();
        //add service is user online or not

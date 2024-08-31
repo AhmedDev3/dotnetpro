@@ -25,5 +25,8 @@ public class AppUser
     public List<Photo> Photos { get; set; } = [];   // empty eray
     public List<UserLiked> LikedByUsers { get; set; } = [];
      public List<UserLiked> LikedUsers { get; set; } = [];
+     //messages
+     public List<Message> MessagesSent { get; set; } = [];
+     public List<Message> MessagesReceived { get; set; } = [];
 
 }
