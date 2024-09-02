@@ -12,8 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 [Authorize]                                                  //use the Auto mapper
 public class UsersController(IUserRepository userRepository , IMapper mapper ,
- IPhotoService photoService) : BaseApiController // localhost 5001 /api/users / UsersController end point
-{   
+ IPhotoService photoService) : BaseApiController 
+{ 
     [HttpGet]
     //https respons to the claint
            //the type of the data
@@ -24,9 +24,9 @@ public class UsersController(IUserRepository userRepository , IMapper mapper ,
         var users =await userRepository.GetMemberAsync(userParams); 
         Response.AddPaginationHeader(users);
         return Ok(users);
-    }   
-        [HttpGet("{username}")] //endPoint  api/users/id=1,2,3
-    public async Task<ActionResult<MemberDto>> GetUser(string username){
+    } 
+    [HttpGet("{username}")] //endPoint  api/users/id=1,2,3
+        public async Task<ActionResult<MemberDto>> GetUser(string username){
 
         var user =await userRepository.GetMemberAsync(username);
 
