@@ -2,6 +2,7 @@ using API.Data;
 using API.Helpers;
 using API.interfaces;
 using API.Services;
+using API.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions;
@@ -34,6 +35,9 @@ public static class ApplicationServiceExtension
        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
        //save the photo in cloud 
        services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
+       //Add SignalR
+       services.AddSignalR();
+       services.AddSingleton<PresenceTracker>();
 
        return services ;
     }

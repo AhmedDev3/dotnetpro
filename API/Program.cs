@@ -2,6 +2,7 @@ using API.Data;
 using API.Entities;
 using API.Extensions;
 using API.Middleware;
+using API.SignalR;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,13 +20,15 @@ var app = builder.Build();
 //error handling
 app.UseMiddleware<ExeptionMeddleware>();
 //this fix the cors error in the web pol
-app.UseCors(x=> x.AllowAnyHeader().AllowAnyMethod()
+app.UseCors(x=> x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
 .WithOrigins("http://localhost:4200","https://localhost:4200"));
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<PresenceHub>("hubs/presence");
+app.MapHub<MessageHub>("hubs/message");
 
 // save seed users in the databace
 using var scope = app.Services.CreateScope();
@@ -36,6 +39,8 @@ try
     var userManager = services.GetRequiredService<UserManager<AppUser>>();
     var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
     await context.Database.MigrateAsync();
+    //clear the table when restart the databaes
+    await context.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
     await Seed.SeedUSers(userManager ,roleManager);
 }
 catch (Exception ex)
