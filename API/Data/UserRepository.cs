@@ -62,13 +62,6 @@ public class UserRepository(DataContext context , IMapper mapper) : IUserReposit
         .Include(x => x.Photos)
         .SingleOrDefaultAsync(x => x.UserName == username);
     }
-
-    public async Task<bool> SaveAllAsync()
-    {
-        //اذا اكبر من الصفر يعني اكو داتا اتسيفت في الداتا بيس
-        return await context.SaveChangesAsync() > 0 ;
-    }
-
     public void Update(AppUser user)
     {
         context.Entry(user).State= EntityState.Modified ;
